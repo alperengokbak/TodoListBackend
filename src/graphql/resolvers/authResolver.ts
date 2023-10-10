@@ -1,32 +1,9 @@
 import { MyContext } from "../../context";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import PasswordValidator from "password-validator";
 import * as dotenv from "dotenv";
 import { ApolloError, AuthenticationError } from "apollo-server-errors";
 dotenv.config();
-
-const passwordSchema = new PasswordValidator();
-
-passwordSchema
-  .is()
-  .min(8)
-  .is()
-  .max(20)
-  .has()
-  .uppercase()
-  .has()
-  .lowercase()
-  .has()
-  .digits(1)
-  .has()
-  .symbols(1)
-  .has()
-  .not()
-  .spaces()
-  .is()
-  .not()
-  .oneOf(["12345", "password"]);
 
 export const authResolver = {
   Query: {
@@ -81,11 +58,6 @@ export const authResolver = {
         }
         if (!isEmail) {
           throw Error("Your email has to include @ and .");
-        }
-        if (!passwordSchema.validate(password)) {
-          throw Error(
-            "Password must be between 8 and 20 characters, contain at least 1 uppercase letter, 1 lowercase letter, 1 number, 1 symbol, and cannot contain spaces."
-          );
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const createdUser = await context.prisma.user.create({
