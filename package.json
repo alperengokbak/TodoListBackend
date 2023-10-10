@@ -1,0 +1,38 @@
+{
+  "name": "todolistbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/index.ts",
+    "migrate": "prisma migrate dev --name init",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.9.3",
+    "@graphql-tools/merge": "^9.0.0",
+    "@prisma/client": "^5.3.1",
+    "apollo-server-errors": "^3.3.1",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "graphql": "^16.8.1",
+    "graphql-tag": "^2.12.6",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "nodemailer": "^6.9.5",
+    "password-validator": "^5.3.0",
+    "sib-api-v3-sdk": "^8.5.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/lodash": "^4.14.199",
+    "@types/node": "^20.7.1",
+    "nodemon": "^3.0.1",
+    "prisma": "^5.3.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

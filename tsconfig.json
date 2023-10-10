@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "outDir": "dist",
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "lib": ["ES2020", "esnext.asynciterable"],
+    "strict": true,
+    "types": ["node"],
+    "allowJs": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": false,
+    "maxNodeModuleJsDepth": 10
+  },
+  "ts-node": {
+    // Tell ts-node CLI to install the --loader automatically
+    "esm": true
+  },
+  "ts-node-dev": {
+    // Tell ts-node CLI to install the --loader automatically
+    "esm": true
+  }
+}
