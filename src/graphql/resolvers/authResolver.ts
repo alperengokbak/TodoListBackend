@@ -26,6 +26,10 @@ export const authResolver = {
           where: {
             email: email,
           },
+          include: {
+            lists: true,
+            notes: true,
+          },
         });
         if (!user) {
           throw Error("Incorrect email!");

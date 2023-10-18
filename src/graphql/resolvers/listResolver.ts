@@ -4,14 +4,19 @@ export const listResolver = {
   Query: {
     lists: async (_, __, context: MyContext) => {
       try {
-        const list = await context.prisma.list.findMany({
+        const lists = await context.prisma.list.findMany({
           include: {
             // JOIN
             notes: true,
-            user: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         });
-        return list;
+        return lists;
       } catch (error) {
         console.error("Error fetching list:", error);
         throw error;
@@ -26,7 +31,12 @@ export const listResolver = {
           include: {
             // JOIN
             notes: true,
-            user: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         });
         return list;
