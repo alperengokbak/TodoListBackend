@@ -35,6 +35,7 @@ export const listResolver = {
               select: {
                 id: true,
                 name: true,
+                email: true,
               },
             },
           },
