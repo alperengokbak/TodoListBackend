@@ -30,7 +30,18 @@ export const listResolver = {
           },
           include: {
             // JOIN
-            notes: true,
+            notes: {
+              select: {
+                id: true,
+                content: true,
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
+                },
+              },
+            },
             user: {
               select: {
                 id: true,
@@ -86,12 +97,36 @@ export const listResolver = {
       return list;
     },
     deleteList: async (_, { id }, context: MyContext) => {
-      const list = await context.prisma.list.delete({
+      const list = await context.prisma.list.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          user: true,
+        },
+      });
+
+      if (!list) {
+        throw new Error("List not found");
+      }
+
+      if (list.user.id !== context.user?.id) {
+        throw new Error("You are not authorized to delete this list");
+      }
+
+      await context.prisma.note.deleteMany({
+        where: {
+          listId: id,
+        },
+      });
+
+      const deletedList = await context.prisma.list.delete({
         where: {
           id,
         },
       });
-      return list;
+
+      return deletedList;
     },
   },
 };

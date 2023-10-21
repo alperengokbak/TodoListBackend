@@ -77,12 +77,29 @@ export const noteResolver = {
     },
     deleteNote: async (_, { id }, context: MyContext) => {
       try {
-        const note = await context.prisma.note.delete({
+        const note = await context.prisma.note.findUnique({
+          where: {
+            id,
+          },
+          include: {
+            user: true,
+          },
+        });
+
+        if (!note) {
+          throw new Error("Note not found");
+        }
+
+        if (note.user.id !== context.user?.id) {
+          throw new Error("You are not authorized to delete this note");
+        }
+
+        const deletedNote = await context.prisma.note.delete({
           where: {
             id,
           },
         });
-        return note;
+        return deletedNote;
       } catch (error) {
         console.error("Error deleting note:", error);
         throw error;
